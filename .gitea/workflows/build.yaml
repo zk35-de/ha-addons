@@ -8,6 +8,7 @@ on:
       - "ebusd-ventilation/**"
       - "EBUSD_VERSION"
       - ".gitea/workflows/build.yaml"
+  workflow_dispatch:
 
 jobs:
   build:

@@ -1,0 +1,46 @@
+name: Build & Push
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ebusd-heating/**"
+      - "ebusd-ventilation/**"
+      - "EBUSD_VERSION"
+      - ".gitea/workflows/build.yaml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        addon: [ebusd-heating, ebusd-ventilation]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version
+        id: ver
+        run: echo "ver=$(cat EBUSD_VERSION)" >> $GITHUB_OUTPUT
+
+      - name: Derive john30 image tag (major.minor only)
+        id: ebusd_tag
+        run: |
+          VER=$(cat EBUSD_VERSION)
+          MINOR="${VER%.*}"
+          echo "tag=v${MINOR}" >> $GITHUB_OUTPUT
+
+      - name: Build image
+        run: |
+          podman build \
+            --build-arg EBUSD_VERSION=${{ steps.ebusd_tag.outputs.tag }} \
+            -t git.zk35.de/secalpha/ha-addons/${{ matrix.addon }}:${{ steps.ver.outputs.ver }} \
+            -t git.zk35.de/secalpha/ha-addons/${{ matrix.addon }}:latest \
+            ${{ matrix.addon }}/
+
+      - name: Login and push
+        env:
+          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+        run: |
+          podman login git.zk35.de -u secalpha -p ${REGISTRY_TOKEN}
+          podman push git.zk35.de/secalpha/ha-addons/${{ matrix.addon }}:${{ steps.ver.outputs.ver }}
+          podman push git.zk35.de/secalpha/ha-addons/${{ matrix.addon }}:latest

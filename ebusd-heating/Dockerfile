@@ -1,7 +1,7 @@
 ARG EBUSD_VERSION=v26.1
 
 # ebusd binary from upstream official image
-FROM john30/ebusd:${EBUSD_VERSION} AS ebusd-upstream
+FROM docker.io/john30/ebusd:${EBUSD_VERSION} AS ebusd-upstream
 # ttyd: web terminal served on HA ingress port
 FROM ghcr.io/tsl0922/ttyd:latest AS ttyd-upstream
 

@@ -1,7 +1,7 @@
 name: "eBUSd Heating"
 version: "26.1.6"
 slug: ebusd_heating
-description: "ebusd for the eBUS heating bus. Connects Home Assistant to eBUS-enabled heating systems."
+description: "ebusd for the eBUS heating bus."
 url: https://github.com/zk35-de/ha-addons
 arch:
   - amd64
@@ -24,10 +24,27 @@ ports_description:
 ingress: true
 ingress_port: 7681
 options:
-  commandline_options:
-    - "--mqttjson"
+  mqtt_topic: "heating"
+  mqtt_client_id: ""
+  mqtt_int: "write"
+  mqtt_var: "area=Heating"
+  scan_config: "full"
+  poll_interval: 5
+  access_level: "*"
+  receive_timeout: 100000
+  log_level: "all:error"
+  commandline_options: []
 schema:
   device: "device(subsystem=tty)?"
   network_device: str?
+  mqtt_topic: str
+  mqtt_client_id: str?
+  mqtt_int: str?
+  mqtt_var: str?
+  scan_config: str?
+  poll_interval: int?
+  access_level: str?
+  receive_timeout: int?
+  log_level: str?
   commandline_options:
     - str

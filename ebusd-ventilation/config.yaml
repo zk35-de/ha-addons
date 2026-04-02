@@ -1,14 +1,14 @@
-name: eBUSd Ventilation
+name: "eBUSd Ventilation"
 version: "26.1.6"
 slug: ebusd_ventilation
-description: >-
-  ebusd for the eBUS ventilation bus. Connects Home Assistant to
-  eBUS-enabled ventilation systems via USB or network adapter.
-url: https://git.zk35.de/secalpha/ha-addons
+description: "ebusd for the eBUS ventilation bus. Connects Home Assistant to eBUS-enabled ventilation systems."
+url: https://github.com/zk35-de/ha-addons
 arch:
   - amd64
   - aarch64
-image: ghcr.io/zk35-de/ebusd-ventilation
+  - armv7
+  - armhf
+image: ghcr.io/zk35-de/ebusd-ventilation-{arch}
 init: false
 startup: services
 map:

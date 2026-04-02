@@ -1,9 +1,9 @@
 ARG EBUSD_VERSION=v26.1
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie
 
 FROM docker.io/john30/ebusd:${EBUSD_VERSION} AS ebusd-upstream
 FROM ghcr.io/tsl0922/ttyd:latest AS ttyd-upstream
-
-FROM ghcr.io/home-assistant/amd64-base-debian:trixie
+FROM ${BUILD_FROM}
 
 ARG EBUSD_VERSION
 ENV LANG=C.UTF-8
@@ -13,7 +13,7 @@ LABEL \
     io.hass.description="ebusd daemon for eBUS ventilation systems" \
     io.hass.version="${EBUSD_VERSION}" \
     io.hass.type="addon" \
-    org.opencontainers.image.source="https://git.zk35.de/secalpha/ha-addons"
+    org.opencontainers.image.source="https://github.com/zk35-de/ha-addons"
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \

@@ -29,9 +29,6 @@ jobs:
           - ha: armv7
             base: ghcr.io/home-assistant/armv7-base-debian:trixie
             platform: linux/arm/v7
-          - ha: armhf
-            base: ghcr.io/home-assistant/armhf-base-debian:trixie
-            platform: linux/arm/v6
 
     steps:
       - uses: actions/checkout@v4

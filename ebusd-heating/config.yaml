@@ -7,7 +7,6 @@ arch:
   - amd64
   - aarch64
   - armv7
-  - armhf
 image: ghcr.io/zk35-de/ebusd-heating-{arch}
 init: false
 startup: services

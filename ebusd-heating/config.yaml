@@ -8,7 +8,7 @@ url: https://git.zk35.de/secalpha/ha-addons
 arch:
   - amd64
   - aarch64
-image: git.zk35.de/secalpha/ha-addons/ebusd-heating
+image: ghcr.io/zk35-de/ebusd-heating
 init: false
 startup: services
 map:
